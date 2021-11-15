@@ -18,26 +18,49 @@ Feature: Machine-api components upgrade tests
   @upgrade-check
   @admin
   @4.8 @4.7 @4.10 @4.9
-  Scenario Outline: Cluster operator should be available after upgrade
-    Given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Available')` is stored in the :co_available clipboard
-    Then the expression should be true> cb.co_available["status"]=="True"
+  scenario outline: cluster operator should be available after upgrade
+    given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Available')` is stored in the :co_available clipboard
+    then the expression should be true> cb.co_available["status"]=="True"
 
-    Given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Degraded')` is stored in the :co_degraded clipboard
-    Then the expression should be true> cb.co_degraded["status"]=="False"
+    given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Degraded')` is stored in the :co_degraded clipboard
+    then the expression should be true> cb.co_degraded["status"]=="False"
 
-    Given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Upgradeable')` is stored in the :co_upgradable clipboard
-    Then the expression should be true> cb.co_upgradable["status"]=="True"
+    given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Upgradeable')` is stored in the :co_upgradable clipboard
+    then the expression should be true> cb.co_upgradable["status"]=="True"
 
-    Given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Progressing')` is stored in the :co_progressing clipboard
-    Then the expression should be true> cb.co_progressing["status"]=="False"
+    given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Progressing')` is stored in the :co_progressing clipboard
+    then the expression should be true> cb.co_progressing["status"]=="False"
 
   @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
   @vsphere-upi @openstack-upi @gcp-upi @azure-upi @aws-upi
-  Examples:
+  examples:
     | cluster_operator           |
-    | "machine-api"              | # @case_id OCP-22712
-    | "cluster-autoscaler"       | # @case_id OCP-27664
-    | "cloud-controller-manager" | # @case_id OCP-43331
+    | "machine-api"              | # @case_id ocp-22712
+    | "cluster-autoscaler"       | # @case_id ocp-27664
+
+
+  # @author huliu@redhat.com
+  @upgrade-check
+  @admin
+  @4.10 @4.9
+  scenario outline: cluster operator should be available after upgrade
+    given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Available')` is stored in the :co_available clipboard
+    then the expression should be true> cb.co_available["status"]=="True"
+
+    given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Degraded')` is stored in the :co_degraded clipboard
+    then the expression should be true> cb.co_degraded["status"]=="False"
+
+    given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Upgradeable')` is stored in the :co_upgradable clipboard
+    then the expression should be true> cb.co_upgradable["status"]=="True"
+
+    given evaluation of `cluster_operator(<cluster_operator>).condition(type: 'Progressing')` is stored in the :co_progressing clipboard
+    then the expression should be true> cb.co_progressing["status"]=="False"
+
+  @vsphere-ipi @openstack-ipi @gcp-ipi @baremetal-ipi @azure-ipi @aws-ipi
+  @vsphere-upi @openstack-upi @gcp-upi @azure-upi @aws-upi
+  examples:
+    | cluster_operator           |
+    | "cloud-controller-manager" | # @case_id ocp-43331
 
 
   @upgrade-prepare
