@@ -190,13 +190,13 @@ Feature: Machine-api components upgrade tests
 
     @aws-ipi
     Examples:
-      | iaas_type | machineset_name        | value                   |
-      | aws       | machineset-clone-41175 | "spotMarketOptions": {} |
+      | case_id                         | iaas_type | machineset_name        | value                   |
+      | OCP-41175:ClusterInfrastructure | aws       | machineset-clone-41175 | "spotMarketOptions": {} | # @case_id OCP-41175
 
     @gcp-ipi
     Examples:
-      | iaas_type | machineset_name        | value                   |
-      | gcp       | machineset-clone-41803 | "preemptible": true     |
+      | case_id                         | iaas_type | machineset_name        | value                   |
+      | OCP-41803:ClusterInfrastructure | gcp       | machineset-clone-41803 | "preemptible": true     | # @case_id OCP-41803
 
   # @author zhsun@redhat.com
   @upgrade-check
